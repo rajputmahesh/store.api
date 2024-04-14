@@ -20,5 +20,8 @@ namespace store.datalayer.DbAccess
 
         public DbSet<Product> Product { get; set; }
 
+        public DbSet<UserRoleMapping> UserRoleMapping { get; set; }
+        
+
     }
 }

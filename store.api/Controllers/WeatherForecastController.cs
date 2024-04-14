@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using store.datalayer.DbAccess;
 
 namespace store.api.Controllers
 {
@@ -12,15 +14,21 @@ namespace store.api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly StoreDbContext _storeDbContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, StoreDbContext storeDbContext)
         {
             _logger = logger;
+            _storeDbContext = storeDbContext;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var userInfo = _storeDbContext.UserInfo.Where(u => u.Id == 1);
+
+
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
